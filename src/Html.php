@@ -1,17 +1,23 @@
 <?php
-/**
- * Created by naveedulhassan.
- * Date: 1/20/16
- * Time: 3:25 PM
- */
-
 namespace Nvd\Crud;
 
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 
 class Html
 {
-    public static function test()
+    public static function sortableTh($fieldName, $route, $label=null )
     {
-        return "test";
+        $label = $label?:ucwords( str_replace( "_", " ", $fieldName ) );
+        $sortType = Request::input("sortType") == "asc" ? "desc" : "asc";
+        $params = array_merge(Input::query(),['sort' => $fieldName, 'sortType' => $sortType]);
+        $href = route($route,$params);
+
+        $output = "<th>";
+        $output .= "<a href='{$href}'>";
+        $output .= $label;
+        $output .= "</a>";
+        $output .= "</th>";
+        return $output;
     }
 }
