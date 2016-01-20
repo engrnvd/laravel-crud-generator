@@ -1,8 +1,9 @@
 {
     "name":    "nvd/crud-generator",
+    "version": "1.0",
     "type":    "library",
     "license": "MIT",
-    "description": "Nacho, nacho man. I want to be a nacho man",
+    "description": "CRUD generator for Laravel",
     "authors": [
         {
             "name": "Naveed ul Hassan",
