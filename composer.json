@@ -1,0 +1,19 @@
+{
+    "name":    "nvd/crud-generator",
+    "type":    "library",
+    "license": "MIT",
+    "description": "Nacho, nacho man. I want to be a nacho man",
+    "authors": [
+        {
+            "name": "Naveed ul Hassan",
+            "email": "08es34@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {"Nvd\\Crud\\": ["src"]}
+    },
+    "require-dev": {}
+}
