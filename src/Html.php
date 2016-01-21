@@ -53,12 +53,13 @@ class Html
         return $output;
     }
 
-    public static function startTag( $tag, $attributes = [] )
+    public static function startTag( $tag, $attributes = [], $inline = false )
     {
         $output = "<{$tag}";
         foreach ( $attributes as $attr => $value ){
             $output .= " {$attr}='{$value}'";
         }
+        $output .= $inline ? "/" : "";
         $output .= ">";
         return $output;
     }
