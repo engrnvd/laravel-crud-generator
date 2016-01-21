@@ -13,6 +13,13 @@ use Illuminate\Support\MessageBag;
  *
  * @property $name;
  * @property $value;
+ *
+ * @method Form label($label = "")
+ * @method Form model($value = "")
+ * @method Form type($value = "")
+ * @method Form helpBlock($value = false)
+ * @method Form options($value = false)
+ * @method Form useOptionKeysForValues($value = false)
  */
 class Form
 {
@@ -50,7 +57,10 @@ class Form
             throw new \Exception("Attributes should be an array.");
 
         if($value)
+        {
             $this->attributes = array_merge($this->attributes, $value);
+            return $this;
+        }
 
         return $this->attributes;
     }
