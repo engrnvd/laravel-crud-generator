@@ -1,24 +1,27 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Nvd\Crud\Commands;
 
 use Illuminate\Console\Command;
+use Nvd\Crud\Db;
+use Nvd\Crud\Generators\RouteGenerator;
 
-class SayHelloTo extends Command
+class Crud extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'say:hello';
+    protected $signature = 'nvd:crud
+        {tableName : The name of the table or the string "all" if you want to generate crud for all the tables at once.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Say hello to the user';
+    protected $description = 'Generate crud for a specific table or all tables in the database';
 
     /**
      * Create a new command instance.
@@ -37,7 +40,9 @@ class SayHelloTo extends Command
      */
     public function handle()
     {
-        $name = $this->ask('What is your name?');
-        $this->info('Howdy '.$name.'!');
+        $table = $this->argument('tableName');
+//        $fields = Db::fields($table);
+//        dd($fields);
+        (new RouteGenerator($table))->generate();
     }
 }
