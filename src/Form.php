@@ -23,6 +23,8 @@ use Illuminate\Support\MessageBag;
  */
 class Form
 {
+    protected $_name;
+    protected $_value;
     protected $attributes = [];
     protected $label;
     protected $helpBlock = true; // show help block or not
@@ -33,7 +35,7 @@ class Form
 
     public static function input( $name, $type = 'text' )
     {
-        $elem = static::createElement($name);
+        $elem = static::createElement($name,'input');
         $elem->attributes['type'] = $type;
         return $elem;
     }
@@ -103,7 +105,7 @@ class Form
         return $output;
     }
 
-    protected static function createElement( $name, $type = 'input' )
+    protected static function createElement( $name, $type )
     {
         $elem = new self;
         $elem->type = $type;
@@ -116,7 +118,12 @@ class Form
 
     protected function setValue()
     {
-        $this->value = old($this->name) or ($this->model and $this->model->{$this->name});
+        $this->value = old($this->name);
+
+        if( empty($this->value) and $this->model ) {
+            $this->value = $this->model->{$this->name};
+        }
+
         return $this;
     }
 
@@ -133,14 +140,21 @@ class Form
         return $this->$attr;
     }
 
-    public function __set($name, $value)
+    public function __set($property, $value)
     {
-        if( in_array( $name, ['name','value'] ) )
+        if( in_array( $property, ['name','value'] ) )
         {
-            $this->$name = $value;
-            if( $name != 'value' or $this->type == 'input' ) // textarea and select should not have a value attribute
-                $this->attributes[$name] = $value;
+            $this->{"_".$property} = $value;
+            if( $property != 'value' or $this->type == 'input' ) // textarea and select should not have a value attribute
+            {
+                $this->attributes[$property] = $value;
+            }
         }
+    }
+
+    public function __get($property)
+    {
+        return $this->{"_".$property};
     }
 
 }
