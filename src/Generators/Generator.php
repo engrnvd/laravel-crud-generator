@@ -9,24 +9,14 @@ namespace Nvd\Crud\Generators;
 
 use Nvd\Crud\Commands\Crud;
 
-class Generator
+class Generator extends Crud
 {
     public $tableName;
-    public $command;
 
     public function __construct($tableName)
     {
         $this->tableName = $tableName;
-        $this->command = new Crud();
+        return parent::__construct();
     }
 
-    public function route()
-    {
-        return str_singular($this->tableName);
-    }
-
-    public function controller()
-    {
-        return studly_case(str_singular($this->tableName))."Controller";
-    }
 }

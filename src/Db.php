@@ -10,7 +10,6 @@ namespace Nvd\Crud;
 
 class Db
 {
-
     public static function fields($table)
     {
         $columns = \DB::select('show fields from '.$table);
@@ -40,4 +39,53 @@ class Db
         }
         return $tableFields;
     }
+
+    public static function getConditionStr($field)
+    {
+        if( in_array( $field->type, ['varchar','text'] ) )
+            return "'{$field->name}','like','%'.\Request::input('{$field->name}').'%'";
+        return "'{$field->name}',\Request::input('{$field->name}')";
+    }
+
+    public static function getValidationRule($field)
+    {
+        // skip certain fields
+        if ( in_array( $field->name, static::skippedFields() ) )
+            return "";
+
+        $rules = [];
+        // required fields
+        if( $field->required )
+            $rules[] = "required";
+
+        // strings
+        if( in_array( $field->type, ['varchar','text'] ) )
+        {
+            $rules[] = "string";
+            if ( $field->maxLength ) $rules[] = "max:".$field->maxLength;
+        }
+
+        // dates
+        if( in_array( $field->type, ['date','datetime'] )  )
+            $rules[] = "date";
+
+        // numbers
+        if ( in_array( $field->type, ['int','unsigned_int'] ) )
+            $rules [] = "integer";
+
+        // emails
+        if( preg_match("/email/", $field->name) ){ $rules[] = "email"; }
+
+        // enums
+        if ( $field->type == 'enum' )
+            $rules [] = "in:".join( ",", $field->enumValues );
+
+        return "'".$field->name."' => '".join( "|", $rules )."',";
+    }
+
+    protected static function skippedFields()
+    {
+        return ['id','created_at','updated_at'];
+    }
+
 }
