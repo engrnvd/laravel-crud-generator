@@ -4,7 +4,6 @@ namespace Nvd\Crud\Commands;
 
 use Illuminate\Console\Command;
 use Nvd\Crud\Db;
-use Nvd\Crud\Generators\RouteGenerator;
 
 class Crud extends Command
 {
@@ -44,6 +43,7 @@ class Crud extends Command
         $this->generateRoute();
         $this->generateController();
         $this->generateModel();
+        $this->generateViews();
     }
 
     public function generateRoute()
@@ -71,7 +71,7 @@ class Crud extends Command
 
         if($this->confirmOverwrite($controllerFile))
         {
-            $content = view('nvd::controller',['gen' => $this]);
+            $content = view('vendor.crud.templates.controller',['gen' => $this]);
             file_put_contents($controllerFile, $content);
             $this->info( $this->controllerClassName()." generated successfully." );
         }
@@ -83,7 +83,7 @@ class Crud extends Command
 
         if($this->confirmOverwrite($modelFile))
         {
-            $content = view( 'nvd::model', [
+            $content = view( 'vendor.crud.templates.model', [
                 'gen' => $this,
                 'fields' => Db::fields($this->tableName)
             ]);
@@ -95,7 +95,16 @@ class Crud extends Command
     public function generateViews()
     {
         if( !file_exists($this->viewsDir()) ) mkdir($this->viewsDir());
-        //.....
+        foreach ( config('crud.views') as $view ){
+            $content = view( "vendor.crud.templates.views.".$view, [
+                'gen' => $this,
+                'fields' => Db::fields($this->tableName)
+            ]);
+
+            $viewFile = $this->viewsDir()."/".$view.".blade.php";
+            file_put_contents($viewFile, $content);
+            $this->info( "View file ".$view." generated successfully." );
+        }
     }
 
     protected function confirmOverwrite($file)
@@ -153,6 +162,16 @@ class Crud extends Command
     public function modelVariableName()
     {
         return camel_case(str_singular($this->tableName));
+    }
+
+    public function titleSingular()
+    {
+        return ucwords(str_singular(str_replace("_", " ", $this->tableName)));
+    }
+
+    public function titlePlural()
+    {
+        return ucwords(str_replace("_", " ", $this->tableName));
     }
 
 }
