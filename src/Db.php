@@ -88,4 +88,25 @@ class Db
         return ['id','created_at','updated_at'];
     }
 
+    public static function getSearchInputStr ( $field )
+    {
+        // selects
+        if ( $field->type == 'enum' )
+        {
+            $output = "{!!\Nvd\Crud\Html::selectRequested(\n";
+            $output .= "\t\t\t\t\t'".$field->name."',\n";
+            $output .= "\t\t\t\t\t[ '', '".join("', '",$field->enumValues)."' ],\n"; //Yes', 'No
+            $output .= "\t\t\t\t\t['class'=>'form-control']\n";
+            $output .= "\t\t\t\t)!!}";
+            return $output;
+        }
+
+        // input type:
+        $type = 'text';
+        if ( $field->type == 'date' ) $type = $field->type;
+        $output = '<input type="'.$type.'" class="form-control" name="'.$field->name.'" value="{{Request::input("'.$field->name.'")}}">';
+        return $output;
+
+    }
+
 }

@@ -96,14 +96,17 @@ class Crud extends Command
     {
         if( !file_exists($this->viewsDir()) ) mkdir($this->viewsDir());
         foreach ( config('crud.views') as $view ){
-            $content = view( "vendor.crud.templates.views.".$view, [
-                'gen' => $this,
-                'fields' => Db::fields($this->tableName)
-            ]);
-
             $viewFile = $this->viewsDir()."/".$view.".blade.php";
-            file_put_contents($viewFile, $content);
-            $this->info( "View file ".$view." generated successfully." );
+//            if($this->confirmOverwrite($viewFile))
+            {
+                $content = view( "vendor.crud.templates.views.".$view, [
+                    'gen' => $this,
+                    'fields' => Db::fields($this->tableName)
+                ]);
+
+                file_put_contents($viewFile, $content);
+                $this->info( "View file ".$view." generated successfully." );
+            }
         }
     }
 
@@ -113,8 +116,7 @@ class Crud extends Command
         if( !file_exists($file) ) return true;
 
         // file exists, get confirmation
-        $this->info($file.' already exists!');
-        if ($this->confirm('Do you wish to overwrite this file? [y|N]')) {
+        if ($this->confirm($file.' already exists! Do you wish to overwrite this file? [y|N]')) {
             $this->info("overwriting...");
             return true;
         }

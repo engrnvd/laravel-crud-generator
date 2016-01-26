@@ -4,8 +4,6 @@
 
     <h2>Update Profile: {{$profile->name}}</h2>
 
-{{--    {{dd(\Nvd\Crud\Db::fields('persons'))}}--}}
-
     <form action="/profile/{{$profile->id}}" method="post">
 
         {{ csrf_field() }}
