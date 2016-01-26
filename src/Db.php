@@ -66,7 +66,7 @@ class Db
         }
 
         // dates
-        if( in_array( $field->type, ['date','datetime'] )  )
+        if( in_array( $field->type, ['date','datetime'] ) )
             $rules[] = "date";
 
         // numbers
@@ -107,6 +107,32 @@ class Db
         $output = '<input type="'.$type.'" class="form-control" name="'.$field->name.'" value="{{Request::input("'.$field->name.'")}}">';
         return $output;
 
+    }
+
+    public static function getFormInputMarkup ( $field, $modelName = '' )
+    {
+        // skip certain fields
+        if ( in_array( $field->name, static::skippedFields() ) )
+            return "";
+
+        // string that binds the model
+        $modelStr = $modelName ? '->model($'.$modelName.')' : '';
+
+        // selects
+        if ( $field->type == 'enum' )
+        {
+            return "{!! \Nvd\Crud\Form::select( '{$field->name}', [ '".join("', '",$field->enumValues)."' ] ){$modelStr}->show() !!}";
+        }
+
+        if ( $field->type == 'text' )
+        {
+            return "{!! \Nvd\Crud\Form::textarea( '{$field->name}' ){$modelStr}->show() !!}";
+        }
+
+        // input type:
+        $type = 'text';
+        if ( $field->type == 'date' ) $type = $field->type;
+        return "{!! \Nvd\Crud\Form::input('{$field->name}','{$type}'){$modelStr}->show() !!}";
     }
 
 }

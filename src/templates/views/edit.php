@@ -1,24 +1,26 @@
-@extends('layouts.app-btsp')
+<?php
+/* @var $gen \Nvd\Crud\Commands\Crud */
+/* @var $fields [] */
+?>
+
+@extends('<?=config('crud.layout')?>')
 
 @section('content')
 
-    <h2>Update Profile: {{$profile->name}}</h2>
+    <h2>Update <?=$gen->titleSingular()?>: {{$<?=$gen->modelVariableName()?>-><?=$fields[1]->name?>}}</h2>
 
-    <form action="/profile/{{$profile->id}}" method="post">
+    <form action="/<?=$gen->route()?>/{{$<?=$gen->modelVariableName()?>->id}}" method="post">
 
         {{ csrf_field() }}
 
         {{ method_field("PUT") }}
+<?php foreach ( $fields as $field )  { ?>
+<?php if( $str = \Nvd\Crud\Db::getFormInputMarkup( $field, $gen->modelVariableName() ) ) { ?>
 
-        {!! \Nvd\Crud\Form::input("name")->model($profile)->show() !!}
+        <?=$str?>
 
-        {!! \Nvd\Crud\Form::input("dob","date")->model($profile)->label('Date of Birth')->show() !!}
-
-        {!! \Nvd\Crud\Form::select( "is_a_good_person", [ "Yes", "No" ] )->model($profile)->show() !!}
-
-        {!! \Nvd\Crud\Form::textarea( "about" )->model($profile)->label(false)->attributes(['placeholder' => 'Tell us about this user'])->show() !!}
-
-        {!! \Nvd\Crud\Form::select( "gender", [ "Male", "Female" ] )->model($profile)->show() !!}
+<?php } ?>
+<?php } ?>
 
         <button type="submit" class="btn btn-default">Submit</button>
 

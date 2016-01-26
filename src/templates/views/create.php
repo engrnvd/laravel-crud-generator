@@ -1,22 +1,24 @@
-@extends('layouts.app-btsp')
+<?php
+/* @var $gen \Nvd\Crud\Commands\Crud */
+/* @var $fields [] */
+?>
+
+@extends('<?=config('crud.layout')?>')
 
 @section('content')
 
-    <h2>Create a New Profile</h2>
+    <h2>Create a New <?=$gen->titleSingular()?></h2>
 
-    <form action="/profile" method="post">
+    <form action="/<?=$gen->route()?>" method="post">
 
         {{ csrf_field() }}
+<?php foreach ( $fields as $field )  { ?>
+<?php if( $str = \Nvd\Crud\Db::getFormInputMarkup($field) ) { ?>
 
-        {!! \Nvd\Crud\Form::input("name")->show() !!}
+        <?=$str?>
 
-        {!! \Nvd\Crud\Form::input("dob","date")->label('Date of Birth')->show() !!}
-
-        {!! \Nvd\Crud\Form::select( "is_a_good_person", [ "Yes", "No" ] )->show() !!}
-
-        {!! \Nvd\Crud\Form::textarea( "about" )->label(false)->attributes(['placeholder' => 'Tell us about this user'])->show() !!}
-
-        {!! \Nvd\Crud\Form::select( "gender", [ "Male","Female" ] )->show() !!}
+<?php } ?>
+<?php } ?>
 
         <button type="submit" class="btn btn-default">Submit</button>
 
