@@ -97,7 +97,7 @@ class Crud extends Command
         if( !file_exists($this->viewsDir()) ) mkdir($this->viewsDir());
         foreach ( config('crud.views') as $view ){
             $viewFile = $this->viewsDir()."/".$view.".blade.php";
-//            if($this->confirmOverwrite($viewFile))
+            if($this->confirmOverwrite($viewFile))
             {
                 $content = view( "vendor.crud.templates.views.".$view, [
                     'gen' => $this,
