@@ -20,7 +20,11 @@ CRUD generator for Laravel 5.x
     - Run `php artisan vendor:publish` from the project directory
 4. Done!
     
-    **Note:** NVD CRUD generator uses *Route Model Bindings*. So, for Laravel versions prior to v5.2, you will need to define your [route model bindings](https://laravel.com/docs/5.1/routing#route-model-binding) in `RouteServiceProvider`'s `boot()` method
+    **Note:** NVD CRUD generator uses *Route Model Bindings*. So, for Laravel versions prior to v5.2, you will need to define your [route model bindings](https://laravel.com/docs/5.1/routing#route-model-binding) in `RouteServiceProvider`'s `boot()` method:
+    
+    ```
+    $router->model('phone', 'App\Phone'); // for a table named 'phones'
+    ```
 
 ## Usage
 
