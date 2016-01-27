@@ -54,15 +54,32 @@ class Crud extends Command
 
         if ( strpos( $routesFileContent, $route ) == false )
         {
-            $routesFileContent .= "\n".$route;
+            $routesFileContent = $this->getUpdatedContent($routesFileContent, $route);
             file_put_contents($routesFile,$routesFileContent);
             $this->info("created route: ".$route);
+
             return true;
         }
 
         $this->info("Route: '".$route."' already exists.");
         $this->info("Skipping...");
         return false;
+    }
+
+    protected function getUpdatedContent ( $existingContent, $route )
+    {
+        // check if the user has directed to add routes
+        $str = "nvd-crud routes go here";
+        if( strpos( $existingContent, $str ) !== false )
+            return str_replace( $str, "{$str}\n\t".$route, $existingContent );
+
+        // check for 'web' middleware group
+        $regex = "/(Route\s*\:\:\s*group\s*\(\s*\[\s*\'middleware\'\s*\=\>\s*\[\s*\'web\'\s*\]\s*\]\s*\,\s*function\s*\(\s*\)\s*\{)/";
+        if( preg_match( $regex, $existingContent ) )
+            return preg_replace( $regex, "$1\n\t".$route, $existingContent );
+
+        // if there is no 'web' middleware group
+        return $existingContent."\n".$route;
     }
 
     public function generateController()
