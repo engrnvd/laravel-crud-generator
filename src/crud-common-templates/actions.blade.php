@@ -10,6 +10,7 @@
 
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
-    <button type="submit" class="fa fa-remove text-danger remove-btn"></button>
+    <button style="outline: none;background: transparent;border: none;"
+            type="submit" class="fa fa-remove text-danger"></button>
 </form>
 </td>
