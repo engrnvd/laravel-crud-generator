@@ -40,10 +40,41 @@ class Crud extends Command
     public function handle()
     {
         $this->tableName = $this->argument('tableName');
+        $this->generateRouteModelBinding();
         $this->generateRoute();
         $this->generateController();
         $this->generateModel();
         $this->generateViews();
+    }
+
+    public function generateRouteModelBinding()
+    {
+        $declaration = "\$router->model('".$this->route()."', 'App\\".$this->modelClassName()."');";
+        $providerFile = app_path('Providers/RouteServiceProvider.php');
+        $fileContent = file_get_contents($providerFile);
+
+        if ( strpos( $fileContent, $declaration ) == false )
+        {
+            $regex = "/(public\s*function\s*boot\s*\(\s*Router\s*.router\s*\)\s*\{)/";
+            if( preg_match( $regex, $fileContent ) )
+            {
+                $fileContent = preg_replace( $regex, "$1\n\t\t".$declaration, $fileContent );
+                file_put_contents($providerFile, $fileContent);
+                $this->info("Route model binding inserted successfully in ".$providerFile);
+                return true;
+            }
+
+            // match was not found for some reason
+            $this->warn("Could not add route model binding for the route '".$this->route()."'.");
+            $this->warn("Please add the following line manually in {$providerFile}:");
+            $this->warn($declaration);
+            return false;
+        }
+
+        // already exists
+        $this->info("Model binding for the route: '".$this->route()."' already exists.");
+        $this->info("Skipping...");
+        return false;
     }
 
     public function generateRoute()

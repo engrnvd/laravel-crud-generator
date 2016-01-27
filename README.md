@@ -66,6 +66,7 @@ In case you don't like the default code that is generated for you, the templates
     </body>
     </html>
     ```
+
 ### Routes Declaration
 
 - For Laravel 5.2, the generator generates routes inside the closure of the route group that applies the 'web' middleware group in the `/app/Http/route.php` out of the box, as follows:
