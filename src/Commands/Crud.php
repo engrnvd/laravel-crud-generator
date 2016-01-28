@@ -15,14 +15,14 @@ class Crud extends Command
      * @var string
      */
     protected $signature = 'nvd:crud
-        {tableName : The name of the table or the string "all" if you want to generate crud for all the tables at once.}';
+        {tableName : The name of the table you want to generate crud for.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate crud for a specific table or all tables in the database';
+    protected $description = 'Generate crud for a specific table in the database';
 
     /**
      * Create a new command instance.
