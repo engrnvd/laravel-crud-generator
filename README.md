@@ -19,7 +19,7 @@ CRUD generator for Laravel 5.x
 ## Installation
 
 1. Download:
-    - Run `composer require nvd/crud-generator:dev-master` from the project directory
+    - Run `composer require nvd/crud-generator` from the project directory
 2. Register the Service Provider in `config/app.php`:
     
     ```
