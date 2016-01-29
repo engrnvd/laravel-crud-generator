@@ -2,6 +2,20 @@
 
 CRUD generator for Laravel 5.x
 
+## Features
+
+- Easy to set up (No need to install a separate package to handle Html and Forms)
+- Easy to customize (Through configurations and custom templates)
+- Intelligent route generation
+    - Checks overwrite
+    - Compatible with Laravel 5.2 ('web' route group)
+- Auto route model bindings
+- No need to specify field names and types
+- Fully functional Controllers and Models
+- Support for enum types
+- Intelligent search / filtering by any field
+- Sort by any field
+
 ## Installation
 
 1. Download:
