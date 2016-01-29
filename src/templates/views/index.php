@@ -25,7 +25,7 @@
 				<?php foreach ( $fields as $field )  { ?>
 <td><?=\Nvd\Crud\Db::getSearchInputStr($field)?></td>
 				<?php } ?>
-<td>@include('vendor.crud.common.search-btn')</td>
+<td style="min-width: 6.1em;">@include('vendor.crud.common.search-btn')</td>
 			</form>
 		</tr>
 	    </thead>
