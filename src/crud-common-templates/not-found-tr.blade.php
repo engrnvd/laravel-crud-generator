@@ -1,1 +1,1 @@
-<tr class="alert alert-warning"><td colspan="0">No records found.</td></tr>
+<tr class="alert alert-warning"><td colspan="{{$colspan}}">No records found.</td></tr>
