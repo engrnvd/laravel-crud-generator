@@ -40,10 +40,10 @@ class Crud extends Command
     public function handle()
     {
         $this->tableName = $this->argument('tableName');
+        $this->generateModel();
         $this->generateRouteModelBinding();
         $this->generateRoute();
         $this->generateController();
-        $this->generateModel();
         $this->generateViews();
     }
 
