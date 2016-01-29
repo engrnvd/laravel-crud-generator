@@ -60,7 +60,7 @@ In case you don't like the default code that is generated for you, the templates
 
 ### Layout and Styling
 
-- The default view templates expect `layout.app` template to be present. If you are using a different layout, specify it in the `config/crud.php`
+- The default view templates use `vendor.crud.common.app` template as the layout. If you are using a different layout, specify it in the `config/crud.php`
 - The default view templates use classes from [Bootstrap](http://getbootstrap.com) and [Font Awesome](https://fortawesome.github.io/Font-Awesome/). You can edit the templates and not use them or you can simply include them in your layout like the one below:
 
     ```
@@ -68,8 +68,8 @@ In case you don't like the default code that is generated for you, the templates
     <html>
     <head>
         <title>Laravel Sandbox</title>
-        <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/font-awesome/font-awesome.min.css">
+        <link rel="stylesheet" href="path/to/bootstrap.min.css">
+        <link rel="stylesheet" href="path/to/font-awesome.min.css">
     </head>
     <body>
     <div class="container">
@@ -104,7 +104,7 @@ In case you don't like the default code that is generated for you, the templates
     
 ### Exception: Class "Input" not found
 
-- Some times the facade "Input" is not declared in `config/app.php`. Declare the alias and the exception will be gone:
+- Although it happens rarely, sometimes the facade "Input" is not declared in `config/app.php`. Declare the alias and the exception will be gone:
 
 ```
     'aliases' => [
@@ -113,3 +113,5 @@ In case you don't like the default code that is generated for you, the templates
         //
     ],
 ```
+
+**Note:** Use of Input facade was removed in the latest version. So this error is expected not to appear anyway.

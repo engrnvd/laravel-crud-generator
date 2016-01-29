@@ -1,7 +1,6 @@
 <?php
 namespace Nvd\Crud;
 
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 
 class Html
@@ -13,7 +12,7 @@ class Html
         $sortType = "asc";
         if( Request::input("sort") == $fieldName and Request::input("sortType") == "asc" )
             $sortType = "desc";
-        $params = array_merge(Input::query(),['sort' => $fieldName, 'sortType' => $sortType]);
+        $params = array_merge(Request::query(),['sort' => $fieldName, 'sortType' => $sortType]);
         $href = route($route,$params);
         $output .= "<a href='{$href}'>";
 

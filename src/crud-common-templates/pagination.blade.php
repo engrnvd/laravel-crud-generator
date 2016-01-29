@@ -2,5 +2,5 @@
 /* @var $records */
 ?>
 @if(count($records))
-    {!! $records->appends(Input::query())->render() !!}
+    {!! $records->appends(Request::query())->render() !!}
 @endif
