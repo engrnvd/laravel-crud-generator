@@ -70,12 +70,16 @@ class Form
     public function show()
     {
         $this->setValue();
-        $output = '<div class="form-group">';
-        $output .= $this->label? "<label>{$this->label} <br>" : "";
-        $output .= call_user_func([$this, "show".ucfirst($this->type)]);
-        $output .= $this->label? "</label>" : "";
 
-        if ( $this->helpBlock and $errors = \Session::get('errors', new MessageBag()) and $errors->has($this->name) )
+        $errors = \Session::get('errors', new MessageBag());
+        $hasError = ($errors and $errors->has($this->name)) ? " has-error" : "";
+
+        $output = '<div class="form-group'.$hasError.'">';
+        $output .= $this->label? "<label for='{$this->name}'>{$this->label}" : "";
+        $output .= $this->label? "</label>" : "";
+        $output .= call_user_func([$this, "show".ucfirst($this->type)]);
+
+        if ( $this->helpBlock and $errors and $errors->has($this->name) )
         {
             $output .= '<span class="help-block text-danger">';
             $output .= $errors->first($this->name);
