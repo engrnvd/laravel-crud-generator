@@ -5,7 +5,7 @@ return [
     /*
      * Layout template used when generating views
      * */
-    'layout' => 'layouts.app',
+    'layout' => 'vendor.crud.common.app',
 
     /*
      * Views that will be generated. If you wish to add your own view,
