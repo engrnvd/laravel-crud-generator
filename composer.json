@@ -1,6 +1,6 @@
 {
     "name":    "nvd/crud-generator",
-    "version": "1.0",
+    "version": "1.0.1",
     "type":    "library",
     "license": "MIT",
     "description": "CRUD generator for Laravel",
