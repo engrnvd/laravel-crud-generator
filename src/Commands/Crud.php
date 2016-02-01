@@ -119,7 +119,7 @@ class Crud extends Command
 
         if($this->confirmOverwrite($controllerFile))
         {
-            $content = view('vendor.crud.templates.controller',['gen' => $this]);
+            $content = view($this->templatesDir().'.controller',['gen' => $this]);
             file_put_contents($controllerFile, $content);
             $this->info( $this->controllerClassName()." generated successfully." );
         }
@@ -131,7 +131,7 @@ class Crud extends Command
 
         if($this->confirmOverwrite($modelFile))
         {
-            $content = view( 'vendor.crud.templates.model', [
+            $content = view( $this->templatesDir().'.model', [
                 'gen' => $this,
                 'fields' => Db::fields($this->tableName)
             ]);
@@ -147,7 +147,7 @@ class Crud extends Command
             $viewFile = $this->viewsDir()."/".$view.".blade.php";
             if($this->confirmOverwrite($viewFile))
             {
-                $content = view( "vendor.crud.templates.views.".$view, [
+                $content = view( $this->templatesDir().'.views.'.$view, [
                     'gen' => $this,
                     'fields' => Db::fields($this->tableName)
                 ]);
@@ -222,6 +222,11 @@ class Crud extends Command
     public function titlePlural()
     {
         return ucwords(str_replace("_", " ", $this->tableName));
+    }
+
+    public function templatesDir()
+    {
+        return config('crud.templates');
     }
 
 }

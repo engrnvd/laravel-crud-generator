@@ -1,11 +1,6 @@
 <?php
 
-return [
-
-    /*
-     * Layout template used when generating views
-     * */
-    'layout' => 'vendor.crud.common.app',
+$config = [
 
     /*
      * Views that will be generated. If you wish to add your own view,
@@ -19,4 +14,17 @@ return [
         'create',
     ],
 
+    /*
+     * Directory containing the templates
+     * If you want to use your custom templates, specify them here
+     * */
+    'templates' => 'vendor.crud.classic-templates',
+
 ];
+
+    /*
+     * Layout template used when generating views
+     * */
+    $config['layout'] = $config['templates'].'.common.app';
+
+return $config;

@@ -17,8 +17,7 @@ class NvdCrudServiceProvider extends ServiceProvider
         $this->commands([Crud::class]);
         $this->publishes([
             __DIR__.'/../Config/config.php' => config_path('crud.php'),
-            __DIR__.'/../templates' => base_path('resources/views/vendor/crud/templates'),
-            __DIR__.'/../crud-common-templates' => base_path('resources/views/vendor/crud/common'),
+            __DIR__.'/../classic-templates' => base_path('resources/views/vendor/crud/classic-templates'),
         ],'nvd');
     }
 

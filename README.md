@@ -4,6 +4,7 @@ CRUD generator for Laravel 5.x
 
 ## Features
 
+- Form Input types are determined from the table field types
 - Easy to set up (No need to install a separate package to handle Html and Forms)
 - Easy to customize (Through configurations and custom templates)
 - Intelligent route generation
