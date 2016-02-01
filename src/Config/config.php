@@ -18,7 +18,7 @@ $config = [
      * Directory containing the templates
      * If you want to use your custom templates, specify them here
      * */
-    'templates' => 'vendor.crud.classic-templates',
+    'templates' => 'vendor.crud.single-page-templates',
 
 ];
 
