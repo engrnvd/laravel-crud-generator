@@ -39,7 +39,7 @@
 @include( 'vendor.crud.common.actions', [ 'url' => '<?= $gen->route() ?>', 'record' => $record ] )
 		    	</tr>
 			@empty
-				@include ('vendor.crud.common.not-found-tr')
+				@include ('vendor.crud.common.not-found-tr',['colspan' => <?=count($fields)+1?>])
 	    	@endforelse
 	    </tbody>
 
