@@ -115,3 +115,7 @@ In case you don't like the default code that is generated for you, the templates
 ```
 
 **Note:** Use of Input facade was removed in the latest version. So this error is expected not to appear anyway.
+
+### Primary Keys Other Than 'id' 
+
+- At the moment NVD CRUD generator accepts only 'id' column as the primary key. Having a primary key other than 'id' will be supported in upcoming versions. But right now, you have to follow the convention.
