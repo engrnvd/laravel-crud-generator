@@ -34,7 +34,8 @@
 	    	@forelse ( $records as $record )
 		    	<tr>
 					<?php foreach ( $fields as $field )  { ?>
-<td>{{$record['<?=$field->name?>']}}</td>
+<td><span class="editable" data-type="text" data-pk="{{$record->id}}" data-name="<?=$field->name?>"
+		  data-url="/<?=$gen->route()?>/{{$record->id}}">{{$record['<?=$field->name?>']}}</span></td>
 					<?php } ?>
 @include( '<?=$gen->templatesDir()?>.common.actions', [ 'url' => '<?= $gen->route() ?>', 'record' => $record ] )
 		    	</tr>
@@ -47,4 +48,7 @@
 
 	@include('<?=$gen->templatesDir()?>.common.pagination', [ 'records' => $records ] )
 
+<script>
+	$(".editable").editable({ajaxOptions:{method:'PUT'}});
+</script>
 @endsection

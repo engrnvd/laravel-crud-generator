@@ -74,6 +74,16 @@ class {{$gen->controllerClassName()}} extends Controller
      */
     public function update(Request $request, {{$gen->modelClassName()}} ${{$gen->modelVariableName()}})
     {
+        if( $request->isXmlHttpRequest() )
+        {
+            $data = [$request->name  => $request->value];
+            $validator = \Validator::make( $data, {{$gen->modelClassName()}}::validationRules( $request->name ) );
+            if($validator->fails())
+                return response($validator->errors()->first( $request->name),403);
+            ${{$gen->modelVariableName()}}->update($data);
+            return "Record updated";
+        }
+
         $this->validate($request, {{$gen->modelClassName()}}::validationRules());
 
         ${{$gen->modelVariableName()}}->update($request->all());
