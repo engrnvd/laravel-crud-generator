@@ -1,10 +1,84 @@
 <?php
 namespace Nvd\Crud;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 
 class Html
 {
+    /**
+     * @param $record Model
+     * @param $field
+     * @return string
+     */
+    public static function editable($record, $field )
+    {
+        $attributes = [
+            'class' => "editable",
+            'data-type' => "select",
+            'data-name' => $field->name,
+            'data-value' => $record->{$field->name},
+            'data-pk' => $record->{$record->getKeyName()},
+            'data-url' => "/person/".$record->{$record->getKeyName()},
+        ];
+
+        // source for enum
+        if ( $field->type == 'enum' ) // "[{'Male':'Male'},{'Female':'Female'}]"
+        {
+            $items = [];
+            foreach ( $field->enumValues as $value )
+                $items[] = "{'$value':'$value'}";
+            $attributes['data-source'] = 'data-source="['.join( ',', $items ).']"';
+        }
+
+        $output = static::startTag('span', $attributes);
+        $output .= $record->{$field->name};
+        $output .= static::endTag('span');
+        return $output;
+    }
+
+    public static function getSourceForEnum($field)
+    {
+        if ( $field->type == 'enum' ) // "[{'Male':'Male'},{'Female':'Female'}]"
+        {
+            $items = [];
+            foreach ( $field->enumValues as $value )
+                $items[] = "{'$value':'$value'}";
+            return 'data-source="['.join( ',', $items ).']"';
+        }
+        return "";
+    }
+
+    public static function getInputType($field)
+    {
+        // textarea
+        if( in_array( $field->type, ['text'] ) )
+            return 'textarea';
+
+        // dates
+        if( $field->type == 'date' )
+            return "date";
+
+        // date-time
+        if( $field->type == 'datetime' )
+            return "datetime";
+
+        // numbers
+        if ( in_array( $field->type, ['int','unsigned_int'] ) )
+            return "number";
+
+        // emails
+        if( preg_match("/email/", $field->name) )
+            return "email";
+
+        // enums
+        if ( $field->type == 'enum' )
+            return 'select';
+
+        // default type
+        return 'text';
+    }
+
     public static function sortableTh($fieldName, $route, $label=null )
     {
         $output = "<th>";

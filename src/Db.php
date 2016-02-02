@@ -35,7 +35,7 @@ class Db
                 }
             }
             // everything decided for the field, add it to the array
-            $tableFields[] = $field;
+            $tableFields[$field->name] = $field;
         }
         return $tableFields;
     }
@@ -86,6 +86,11 @@ class Db
     protected static function skippedFields()
     {
         return ['id','created_at','updated_at'];
+    }
+
+    public static function isGuarded($fieldName)
+    {
+        return in_array( $fieldName, static::skippedFields() );
     }
 
     public static function getSearchInputStr ( $field )

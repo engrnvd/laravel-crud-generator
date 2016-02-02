@@ -34,8 +34,21 @@
 	    	@forelse ( $records as $record )
 		    	<tr>
 					<?php foreach ( $fields as $field )  { ?>
-<td><span class="editable" data-type="text" data-pk="{{$record->id}}" data-name="<?=$field->name?>"
-		  data-url="/<?=$gen->route()?>/{{$record->id}}">{{$record['<?=$field->name?>']}}</span></td>
+						<td>
+						<?php if( !\Nvd\Crud\Db::isGuarded($field->name) ) {?>
+						<span class="editable"
+							  data-type="<?=\Nvd\Crud\Html::getInputType($field)?>"
+							  data-name="<?=$field->name?>"
+							  data-value="{{ $record-><?=$field->name?> }}"
+							  data-pk="{{ $record->{$record->getKeyName()} }}"
+							  data-url="/<?=$gen->route()?>/{{ $record->{$record->getKeyName()} }}"
+							  <?=\Nvd\Crud\Html::getSourceForEnum($field)?>>
+							{{ $record-><?=$field->name?> }}
+						</span>
+						<?php } else { ?>
+							{{ $record-><?=$field->name?> }}
+						<?php } ?>
+					</td>
 					<?php } ?>
 @include( '<?=$gen->templatesDir()?>.common.actions', [ 'url' => '<?= $gen->route() ?>', 'record' => $record ] )
 		    	</tr>

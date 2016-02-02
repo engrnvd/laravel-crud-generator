@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <h2>Update <?=$gen->titleSingular()?>: {{$<?=$gen->modelVariableName()?>-><?=$fields[1]->name?>}}</h2>
+    <h2>Update <?=$gen->titleSingular()?>: {{$<?=$gen->modelVariableName()?>-><?=array_values($fields)[1]->name?>}}</h2>
 
     <form action="/<?=$gen->route()?>/{{$<?=$gen->modelVariableName()?>->id}}" method="post">
 
