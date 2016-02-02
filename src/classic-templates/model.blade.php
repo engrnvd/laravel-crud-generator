@@ -44,7 +44,7 @@ class <?=$gen->modelClassName()?> extends Model {
 
         // a single attribute is provided
         if(!is_array($attributes))
-            return $rules[$attributes];
+            return [ $attributes => $rules[$attributes] ];
 
         // a list of attributes is provided
         $newRules = [];
