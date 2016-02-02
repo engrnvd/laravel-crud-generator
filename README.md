@@ -3,7 +3,8 @@
 CRUD generator for Laravel 5.x
 
 ## Features
-
+- Single page CRUD operations
+- Inline, AJAX based table editing
 - Form Input types are determined from the table field types
 - Easy to set up (No need to install a separate package to handle Html and Forms)
 - Easy to customize (Through configurations and custom templates)
