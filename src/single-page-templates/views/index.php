@@ -25,7 +25,7 @@
 				<?php foreach ( $fields as $field )  { ?>
 <td><?=\Nvd\Crud\Db::getSearchInputStr($field)?></td>
 				<?php } ?>
-<td style="min-width: 6.1em;">@include('<?=$gen->templatesDir()?>.common.search-btn')</td>
+<td style="min-width: 6em;">@include('<?=$gen->templatesDir()?>.common.search-btn')</td>
 			</form>
 		</tr>
 	    </thead>
@@ -34,21 +34,19 @@
 	    	@forelse ( $records as $record )
 		    	<tr>
 					<?php foreach ( $fields as $field )  { ?>
-						<td>
+<td>
 						<?php if( !\Nvd\Crud\Db::isGuarded($field->name) ) {?>
-						<span class="editable"
+<span class="editable"
 							  data-type="<?=\Nvd\Crud\Html::getInputType($field)?>"
 							  data-name="<?=$field->name?>"
 							  data-value="{{ $record-><?=$field->name?> }}"
 							  data-pk="{{ $record->{$record->getKeyName()} }}"
 							  data-url="/<?=$gen->route()?>/{{ $record->{$record->getKeyName()} }}"
-							  <?=\Nvd\Crud\Html::getSourceForEnum($field)?>>
-							{{ $record-><?=$field->name?> }}
-						</span>
+							  <?=\Nvd\Crud\Html::getSourceForEnum($field)?>>{{ $record-><?=$field->name?> }}</span>
 						<?php } else { ?>
-							{{ $record-><?=$field->name?> }}
+{{ $record-><?=$field->name?> }}
 						<?php } ?>
-					</td>
+</td>
 					<?php } ?>
 @include( '<?=$gen->templatesDir()?>.common.actions', [ 'url' => '<?= $gen->route() ?>', 'record' => $record ] )
 		    	</tr>
