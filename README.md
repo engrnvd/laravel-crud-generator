@@ -68,7 +68,7 @@ NVD CRUD generator publishes a configuration file `config/crud.php`. You can mod
 
 ### Templates
 
-In case you don't like the default code that is generated for you, the templates for the generated model, controller and the views are located in the `/resources/views/vendor/crud/templates` directory. You are free to edit them as you like.
+In case you don't like the default code that is generated for you, the templates for the generated model, controller and the views are located in the `/resources/views/vendor/crud` directory. You are free to edit them as you like. Or make a copy of any of the templates directory and refer to it in the `config/crud.php`.
 
 ## Known Problems and Their Solutions
 
