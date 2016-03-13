@@ -112,12 +112,12 @@ class Html
         foreach ( $options as $key => $value ){
             if( $useKeysAsValues )
             {
-                $selectedAttr = $key === $selectedValue ? " selected" : "";
+                $selectedAttr = $key === $selectedValue ? " selected='selected'" : "";
                 $valueAttr = " value='{$key}'";
             }
             else
             {
-                $selectedAttr = $value === $selectedValue ? " selected" : "";
+                $selectedAttr = $value === $selectedValue ? " selected='selected'" : "";
                 $valueAttr = "";
             }
             $output .= "<option{$selectedAttr}{$valueAttr}>{$value}</option>";
