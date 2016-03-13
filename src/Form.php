@@ -31,6 +31,7 @@ class Form
     protected $model; // model to be bound
     protected $type; // element type: select, input, textarea
     protected $options; // only for select element
+    protected $selectedValue; // only for select element
     protected $useOptionKeysForValues; // only for select element
 
     public static function input( $name, $type = 'text' )
@@ -40,11 +41,12 @@ class Form
         return $elem;
     }
 
-    public static function select( $name, $options, $useOptionKeysForValues = false )
+    public static function select( $name, $options, $selectedValue = null, $useOptionKeysForValues = false )
     {
         $elem = static::createElement($name,"select");
         $elem->options = $options;
         $elem->useOptionKeysForValues = $useOptionKeysForValues;
+        $elem->selectedValue = $selectedValue;
         return $elem;
     }
 
@@ -98,7 +100,7 @@ class Form
 
     protected function showSelect()
     {
-        return Html::select( $this->name, $this->options, $this->attributes, $this->useOptionKeysForValues );
+        return Html::select( $this->name, $this->options, $this->attributes, $this->selectedValue, $this->useOptionKeysForValues );
     }
 
     protected function showTextarea()
