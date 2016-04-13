@@ -3,7 +3,7 @@
     "version": "1.0.5",
     "type":    "php-library",
     "license": "MIT",
-    "description": "CRUD generator for Laravel",
+    "description": "CRUD generator for Laravel 5.x with minimum setup required",
     "authors": [
         {
             "name": "Naveed ul Hassan",
