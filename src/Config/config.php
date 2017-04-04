@@ -20,6 +20,12 @@ $config = [
      * */
     'templates' => 'vendor.crud.single-page-templates',
 
+    /*
+     * Defining the route file. (Customization for Laravel 5.4.*)
+     * You can also use your custom route path here.
+     * */
+    'routePath' => base_path().'/routes/web.php',
+
 ];
 
     /*
