@@ -1,14 +1,10 @@
 {
     "name":    "arifpavel/crud-generator",
-    "version": "1.0.5",
+    "version": "1.0.0",
     "type":    "php-library",
     "license": "MIT",
     "description": "CRUD generator for Laravel 5.4.x with minimum setup required",
     "authors": [
-        {
-            "name": "Naveed ul Hassan",
-            "email": "08es34@gmail.com"
-        },
         {
             "name": "Arifur Rahman",
             "email": "pavelpatiya@gmail.com"
