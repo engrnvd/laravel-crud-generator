@@ -1,6 +1,6 @@
-# NVD CRUD Generator
+# NVD CRUD Generator for Laravel 5.4.* with Admin LTE support
 
-CRUD generator for Laravel 5.x
+CRUD generator for Laravel 5.4.*
 - [Screenshots](#screenshots)
 - [Features](#features)
 - [Installation](#installation)

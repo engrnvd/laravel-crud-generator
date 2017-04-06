@@ -1,0 +1,1 @@
+<tr class="alert alert-warning"><td colspan="{{$colspan}}">No records found.</td></tr>
