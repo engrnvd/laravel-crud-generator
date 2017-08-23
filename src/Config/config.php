@@ -20,6 +20,11 @@ $config = [
      * */
     'templates' => 'vendor.crud.single-page-templates',
 
+    /*
+     * Define the path to the routes file. This changed in recent
+     * versions of Laravel. Set to 'Http/routes.php' for Laravel < 5.4
+     * */
+    'routesFile' => '../routes/web.php',
 ];
 
     /*

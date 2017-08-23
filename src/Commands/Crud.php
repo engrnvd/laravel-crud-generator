@@ -80,7 +80,12 @@ class Crud extends Command
     public function generateRoute()
     {
         $route = "Route::resource('{$this->route()}','{$this->controllerClassName()}');";
-        $routesFile = app_path('Http/routes.php');
+        $routesFile = app_path(config('crud.routesFile'));
+        if ( !file_exists($routesFile))
+        {
+            $this->error("Route file '$routesFile' not found. Update config/crud.php to correct path.");
+            return false;
+        }
         $routesFileContent = file_get_contents($routesFile);
 
         if ( strpos( $routesFileContent, $route ) == false )
